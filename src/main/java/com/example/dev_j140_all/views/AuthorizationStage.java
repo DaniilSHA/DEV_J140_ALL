@@ -49,6 +49,7 @@ public class AuthorizationStage extends Stage {
 
     public Scene createScene(String welcomeMessage, String activeButtonMessage, String switchButtonMessage, int sceneMode) {
         Label statusMessage = new Label();
+        statusMessage.setAlignment(Pos.CENTER);
         statusMessage.setMaxWidth(300);
         statusMessage.setWrapText(true);
 

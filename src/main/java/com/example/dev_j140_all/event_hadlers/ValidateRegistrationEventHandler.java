@@ -1,5 +1,8 @@
 package com.example.dev_j140_all.event_hadlers;
 
+import com.example.dev_j140_all.database.DatabaseStorage;
+import com.example.dev_j140_all.models.User;
+import com.example.dev_j140_all.services.JdbcDatabaseService;
 import com.example.dev_j140_all.views.AuthorizationStage;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -26,6 +29,7 @@ public class ValidateRegistrationEventHandler implements EventHandler {
             case 0 : break;
             case 1 : statusMessage.setText("invalid login - the length should be between 4 and 16"); return;
             case 2 : statusMessage.setText("invalid login - login should contain only latin characters in lower case."); return;
+            case 3 : statusMessage.setText("invalid login - login is busy."); return;
         }
 
         switch (makePasswordValidation()) {
@@ -34,7 +38,18 @@ public class ValidateRegistrationEventHandler implements EventHandler {
             case 2 : statusMessage.setText("invalid password - login should contain only " +
                     "latin characters in lower and upper case, numbers from 0 to 9, also specific characters like: #,_,$"); return;
         }
-        statusMessage.setText("Your account was successfully created. Try to login on login page");
+
+        System.out.println("hih");
+
+        try (DatabaseStorage databaseStorage = new JdbcDatabaseService()){
+            User newUser = new User(login.getText(), password.getText());
+            databaseStorage.saveUser(newUser);
+            statusMessage.setText("Your account was successfully created. Try to login on login page");
+        } catch (Exception e) {
+            e.printStackTrace();
+            statusMessage.setText("Error: could not save User");
+            System.out.println("Error: could not save User");
+        }
     }
 
     private int makePasswordValidation() {
@@ -48,6 +63,13 @@ public class ValidateRegistrationEventHandler implements EventHandler {
         String login = this.login.getText();
         if (login.length()<4 || login.length()>16) return 1;
         if (!login.matches("[a-z]+")) return 2;
+
+        try (DatabaseStorage databaseStorage = new JdbcDatabaseService()){
+            if (!databaseStorage.isLoginFree(login)) return 3;
+        } catch (Exception e) {
+            System.out.println("Error: could not find User by login");
+        }
+
         return 0;
     }
 }
