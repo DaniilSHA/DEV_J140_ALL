@@ -35,7 +35,7 @@ public class AuthorizationStage extends Stage {
                 "make login",
                 "go to registration page",
                 AuthorizationStage.REGISTRATION
-                );
+        );
     }
 
     private void initRegistrationScene() {
@@ -47,7 +47,7 @@ public class AuthorizationStage extends Stage {
         );
     }
 
-    public Scene createScene (String welcomeMessage, String activeButtonMessage, String switchButtonMessage, int sceneMode) {
+    public Scene createScene(String welcomeMessage, String activeButtonMessage, String switchButtonMessage, int sceneMode) {
         Label statusMessage = new Label();
         statusMessage.setMaxWidth(300);
         statusMessage.setWrapText(true);
@@ -74,11 +74,11 @@ public class AuthorizationStage extends Stage {
         Button activeButton = new Button(activeButtonMessage);
         Button switchButton = new Button(switchButtonMessage);
         switch (sceneMode) {
-            case 1 : {
+            case 1: {
                 switchButton.setOnAction((e) -> setRegistrationScene());
                 break;
             }
-            case 2 : {
+            case 2: {
                 activeButton.setOnAction(new ValidateRegistrationEventHandler(this, statusMessage, loginField, passwordField));
                 switchButton.setOnAction((e) -> setLoginScene());
                 break;
@@ -90,16 +90,16 @@ public class AuthorizationStage extends Stage {
         VBox mainPane = new VBox();
         mainPane.setAlignment(Pos.CENTER);
         mainPane.setSpacing(30);
-        mainPane.getChildren().addAll(info, login, password, statusMessage,  buttons);
+        mainPane.getChildren().addAll(info, login, password, statusMessage, buttons);
 
         return new Scene(mainPane, 400, 500);
     }
 
-    public void setLoginScene(){
+    public void setLoginScene() {
         setScene(loginScene);
     }
 
-    public void setRegistrationScene(){
+    public void setRegistrationScene() {
         setScene(registrationScene);
     }
 }
