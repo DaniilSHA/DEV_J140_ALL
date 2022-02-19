@@ -1,6 +1,6 @@
 package com.example.dev_j140_all.event_hadlers;
 
-import com.example.dev_j140_all.models.AuthorizationStage;
+import com.example.dev_j140_all.views.AuthorizationStage;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
@@ -22,22 +22,32 @@ public class ValidateRegistrationEventHandler implements EventHandler {
 
     @Override
     public void handle(Event event) {
-        if (!validateLogin()) {
-            statusMessage.setText("invalid login");
-            return;
+        switch (makeLoginValidation()) {
+            case 0 : break;
+            case 1 : statusMessage.setText("invalid login - the length should be between 4 and 16"); return;
+            case 2 : statusMessage.setText("invalid login - login should contain only latin characters in lower case."); return;
         }
-        if (!validatePassword()) {
-            statusMessage.setText("invalid password");
-            return;
+
+        switch (makePasswordValidation()) {
+            case 0 : break;
+            case 1 : statusMessage.setText("invalid password - the length should be between 4 and 16"); return;
+            case 2 : statusMessage.setText("invalid password - login should contain only " +
+                    "latin characters in lower and upper case, numbers from 0 to 9, also specific characters like: #,_,$"); return;
         }
         statusMessage.setText("Your account was successfully created. Try to login on login page");
     }
 
-    private boolean validatePassword() {
-        return true;
+    private int makePasswordValidation() {
+        String password = this.password.getText();
+        if (password.length()<4 || password.length()>16) return 1;
+        if (!password.matches("[a-zA-z0-9#_$]+")) return 2;
+        return 0;
     }
 
-    private boolean validateLogin() {
-        return true;
+    private int makeLoginValidation() {
+        String login = this.login.getText();
+        if (login.length()<4 || login.length()>16) return 1;
+        if (!login.matches("[a-z]+")) return 2;
+        return 0;
     }
 }
