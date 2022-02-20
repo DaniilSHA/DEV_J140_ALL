@@ -61,6 +61,27 @@ public class JdbcDatabaseService implements DatabaseStorage, AutoCloseable {
     }
 
     @Override
+    public boolean saveAccount(Account account) {
+        String sql = "INSERT INTO devj140.accounts " +
+                "(first_name, last_name, email, gender, credit_card, balance) " +
+                "VALUES (?,?,?,?,?,?)";
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, account.getFirstName());
+            statement.setString(2, account.getLastName());
+            statement.setString(3, account.getEmail());
+            statement.setString(4, account.getGender());
+            statement.setString(5, account.getCreditCard());
+            statement.setString(6, account.getBalance());
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error: could not save Account");
+            return false;
+        }
+    }
+
+    @Override
     public boolean checkUserLoginAndPassword(String login, String password) {
         String sql = "SELECT * FROM devj140.users WHERE login=?";
         try {

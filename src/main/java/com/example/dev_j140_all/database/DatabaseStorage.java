@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public interface DatabaseStorage extends AutoCloseable {
     boolean isLoginFree(String login);
     boolean saveUser(User user);
+    boolean saveAccount(Account account);
     boolean checkUserLoginAndPassword(String login, String password);
     ArrayList<Account> loadAccounts();
 }

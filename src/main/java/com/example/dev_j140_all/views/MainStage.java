@@ -1,6 +1,7 @@
 package com.example.dev_j140_all.views;
 
 import com.example.dev_j140_all.database.DatabaseStorage;
+import com.example.dev_j140_all.event_hadlers.AddNoteEventHandler;
 import com.example.dev_j140_all.models.Account;
 import com.example.dev_j140_all.services.JdbcDatabaseService;
 import javafx.collections.FXCollections;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 public class MainStage extends Stage {
 
     private Scene mainScene;
+    private static TableView<Account> infoTable;
 
     public MainStage() {
         init();
@@ -42,14 +44,15 @@ public class MainStage extends Stage {
 
         HBox notesTablePane = new HBox();
         notesTablePane.setAlignment(Pos.CENTER);
-        TableView<Account> infoTable = createTableView();
-        loadDataFromDatabase(infoTable);
+        infoTable = createTableView();
+        loadDataFromDatabase();
         notesTablePane.getChildren().add(infoTable);
 
         HBox buttonsPane = new HBox();
         buttonsPane.setAlignment(Pos.CENTER);
         buttonsPane.setSpacing(40);
         Button addNote = new Button("Add note");
+        addNote.setOnAction(new AddNoteEventHandler());
         buttonsPane.getChildren().addAll(addNote);
 
         mainPane.getChildren().addAll(menuBar, infoLabelPane, notesTablePane, buttonsPane);
@@ -57,7 +60,7 @@ public class MainStage extends Stage {
         setScene(mainScene);
     }
 
-    private void loadDataFromDatabase(TableView<Account> infoTable) {
+    public static void loadDataFromDatabase() {
         try (DatabaseStorage databaseStorage = new JdbcDatabaseService()) {
             ArrayList<Account> accounts = databaseStorage.loadAccounts();
             infoTable.setItems(FXCollections.observableArrayList(accounts));
@@ -102,11 +105,12 @@ public class MainStage extends Stage {
         MenuBar menuBar = new MenuBar();
 
         Menu fileMenu = new Menu("File");
-        MenuItem saveDatabaseNote = new Menu("add note");
-        fileMenu.getItems().add(saveDatabaseNote);
+        MenuItem addNoteNote = new MenuItem("add note");
+        addNoteNote.setOnAction(new AddNoteEventHandler());
+        fileMenu.getItems().add(addNoteNote);
 
         Menu viewMenu = new Menu("View");
-        MenuItem defaultView = new Menu("default");
+        MenuItem defaultView = new MenuItem("default");
         viewMenu.getItems().add(defaultView);
 
         menuBar.getMenus().addAll(fileMenu, viewMenu);

@@ -19,6 +19,15 @@ public class Account {
         this.balance = balance;
     }
 
+    public Account(String firstName, String lastName, String email, String gender, String creditCard, String balance) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.gender = gender;
+        this.creditCard = creditCard;
+        this.balance = balance;
+    }
+
     public int getId() {
         return id;
     }
