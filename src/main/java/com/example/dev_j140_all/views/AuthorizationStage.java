@@ -1,5 +1,6 @@
 package com.example.dev_j140_all.views;
 
+import com.example.dev_j140_all.event_hadlers.ValidateLoginEventHandler;
 import com.example.dev_j140_all.event_hadlers.ValidateRegistrationEventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -76,6 +77,7 @@ public class AuthorizationStage extends Stage {
         Button switchButton = new Button(switchButtonMessage);
         switch (sceneMode) {
             case 1: {
+                activeButton.setOnAction(new ValidateLoginEventHandler(this, statusMessage, loginField, passwordField));
                 switchButton.setOnAction((e) -> setRegistrationScene());
                 break;
             }

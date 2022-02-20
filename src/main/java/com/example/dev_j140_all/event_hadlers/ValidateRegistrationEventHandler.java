@@ -39,14 +39,11 @@ public class ValidateRegistrationEventHandler implements EventHandler {
                     "latin characters in lower and upper case, numbers from 0 to 9, also specific characters like: #,_,$"); return;
         }
 
-        System.out.println("hih");
-
         try (DatabaseStorage databaseStorage = new JdbcDatabaseService()){
             User newUser = new User(login.getText(), password.getText());
             databaseStorage.saveUser(newUser);
             statusMessage.setText("Your account was successfully created. Try to login on login page");
         } catch (Exception e) {
-            e.printStackTrace();
             statusMessage.setText("Error: could not save User");
             System.out.println("Error: could not save User");
         }
