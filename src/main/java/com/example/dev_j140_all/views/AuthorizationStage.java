@@ -95,7 +95,10 @@ public class AuthorizationStage extends Stage {
         mainPane.setSpacing(30);
         mainPane.getChildren().addAll(info, login, password, statusMessage, buttons);
 
-        return new Scene(mainPane, 400, 500);
+        Scene buildScene = new Scene(mainPane, 400, 500);
+        buildScene.getStylesheets().add(MainStage.DEFAULT_VIEW);
+
+        return buildScene;
     }
 
     public void setLoginScene() {
