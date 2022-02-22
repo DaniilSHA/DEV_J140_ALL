@@ -15,6 +15,7 @@ public class AddNoteEventHandler implements EventHandler {
         this.currentStylesheetPath = currentStylesheetPath;
     }
 
+
     @Override
     public void handle(Event event) {
         currentStylesheetPath = stage.getCurrentStylesheetPath();
