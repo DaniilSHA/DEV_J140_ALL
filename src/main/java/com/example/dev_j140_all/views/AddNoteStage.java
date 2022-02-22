@@ -14,7 +14,10 @@ import javafx.stage.Stage;
 
 public class AddNoteStage extends Stage {
 
-    public AddNoteStage() {
+    private String currentStylesheetPath;
+
+    public AddNoteStage(String currentStylesheetPath) {
+        this.currentStylesheetPath = currentStylesheetPath;
         init();
     }
 
@@ -117,6 +120,7 @@ public class AddNoteStage extends Stage {
         );
 
         Scene scene = new Scene(mainPane, 400, 600);
+        scene.getStylesheets().add(currentStylesheetPath);
         setScene(scene);
     }
 }

@@ -2,6 +2,7 @@ package com.example.dev_j140_all.views;
 
 import com.example.dev_j140_all.database.DatabaseStorage;
 import com.example.dev_j140_all.event_hadlers.AddNoteEventHandler;
+import com.example.dev_j140_all.event_hadlers.CustomViewEventHandler;
 import com.example.dev_j140_all.models.Account;
 import com.example.dev_j140_all.services.JdbcDatabaseService;
 import javafx.collections.FXCollections;
@@ -11,22 +12,28 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class MainStage extends Stage {
 
+    public static String DEFAULT_VIEW = "/default_view.css";
     private Scene mainScene;
     private static TableView<Account> infoTable;
+    private String currentStylesheetPath;
 
     public MainStage() {
+        currentStylesheetPath = DEFAULT_VIEW;
         init();
     }
 
     private void init() {
         setTitle("Database reader");
         initMainScene();
+        this.getScene().getStylesheets().add(currentStylesheetPath);
         show();
     }
 
@@ -52,7 +59,7 @@ public class MainStage extends Stage {
         buttonsPane.setAlignment(Pos.CENTER);
         buttonsPane.setSpacing(40);
         Button addNote = new Button("Add note");
-        addNote.setOnAction(new AddNoteEventHandler());
+        addNote.setOnAction(new AddNoteEventHandler(this, currentStylesheetPath));
         buttonsPane.getChildren().addAll(addNote);
 
         mainPane.getChildren().addAll(menuBar, infoLabelPane, notesTablePane, buttonsPane);
@@ -105,15 +112,31 @@ public class MainStage extends Stage {
         MenuBar menuBar = new MenuBar();
 
         Menu fileMenu = new Menu("File");
-        MenuItem addNoteNote = new MenuItem("add note");
-        addNoteNote.setOnAction(new AddNoteEventHandler());
-        fileMenu.getItems().add(addNoteNote);
+        MenuItem addNote = new MenuItem("add note");
+        addNote.setOnAction(new AddNoteEventHandler(this, currentStylesheetPath));
+        fileMenu.getItems().add(addNote);
 
         Menu viewMenu = new Menu("View");
         MenuItem defaultView = new MenuItem("default");
-        viewMenu.getItems().add(defaultView);
+        defaultView.setOnAction((e)-> {
+            currentStylesheetPath = DEFAULT_VIEW;
+            this.getScene().getStylesheets().clear();
+            this.getScene().getStylesheets().add(currentStylesheetPath);
+        });
+        MenuItem customView = new MenuItem("select own view");
+        customView.setOnAction(new CustomViewEventHandler(this));
+
+        viewMenu.getItems().addAll(defaultView, customView);
 
         menuBar.getMenus().addAll(fileMenu, viewMenu);
         return menuBar;
+    }
+
+    public String getCurrentStylesheetPath() {
+        return currentStylesheetPath;
+    }
+
+    public void setCurrentStylesheetPath(String currentStylesheetPath) {
+        this.currentStylesheetPath = currentStylesheetPath;
     }
 }
