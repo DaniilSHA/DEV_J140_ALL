@@ -24,6 +24,7 @@ public class RegistrationController {
 
     @FXML
     public void onActiveButtonClick() {
+        statusMessage.setStyle("-fx-text-fill: red");
         switch (makeLoginValidation()) {
             case 0 : break;
             case 1 : statusMessage.setText("invalid login - the length should be between 4 and 16"); return;
@@ -41,6 +42,7 @@ public class RegistrationController {
         try (DatabaseStorage databaseStorage = new JdbcDatabaseService()){
             User newUser = new User(login.getText(), password.getText());
             databaseStorage.saveUser(newUser);
+            statusMessage.setStyle("-fx-text-fill: green");
             statusMessage.setText("Your account was successfully created. Try to login on login page");
         } catch (Exception e) {
             statusMessage.setText("Error: could not save User");
@@ -53,6 +55,7 @@ public class RegistrationController {
         initStage();
         login.setText("");
         password.setText("");
+        statusMessage.setText("");
         stage.setLoginScene();
     }
 

@@ -30,6 +30,7 @@ public class AuthorizationStage extends Stage {
         } catch (IOException e) {
             System.out.println("Error: could not load login scene from fxml");
         }
+        loginScene.getStylesheets().add(MainStage.DEFAULT_VIEW);
     }
 
     private void initRegistrationScene() {
@@ -39,6 +40,7 @@ public class AuthorizationStage extends Stage {
         } catch (IOException e) {
             System.out.println("Error: could not load registration scene from fxml");
         }
+        registrationScene.getStylesheets().add(MainStage.DEFAULT_VIEW);
     }
 
     public void setLoginScene() {

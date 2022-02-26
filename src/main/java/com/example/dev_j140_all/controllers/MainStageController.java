@@ -1,5 +1,6 @@
 package com.example.dev_j140_all.controllers;
 
+import com.example.dev_j140_all.StartApplication;
 import com.example.dev_j140_all.database.DatabaseStorage;
 import com.example.dev_j140_all.models.Account;
 import com.example.dev_j140_all.services.JdbcDatabaseService;
@@ -7,6 +8,8 @@ import com.example.dev_j140_all.views.AddNoteStage;
 import com.example.dev_j140_all.views.MainStage;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -15,6 +18,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class MainStageController {
@@ -65,7 +71,7 @@ public class MainStageController {
     }
 
     @FXML
-    public void onCustomViewClick() {
+    public void onCustomCssViewClick() {
         initStage();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select onw css stylesheet");
@@ -83,9 +89,45 @@ public class MainStageController {
         }
     }
 
+
+    @FXML
+    public void onCustomFxmlViewClick() {
+        initStage();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select onw fxml file");
+        File file = fileChooser.showOpenDialog(mainStage);
+        if (file != null && file.getPath().endsWith(".fxml")) {
+            String currentFxmlFilePath = file.getAbsolutePath().replaceAll("\\\\", "/");
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(new File(currentFxmlFilePath).toURL());
+                Scene customScene = new Scene(fxmlLoader.load(), 1000, 1000);
+                customScene.getStylesheets().add(mainStage.getCurrentStylesheetPath());
+                mainStage.setScene(customScene);
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Error: could not load custom scene from fxml");
+            }
+
+        } else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("ERROR");
+            alert.setContentText("Selected file error");
+            alert.show();
+        }
+    }
+
     @FXML
     public void onDefaultViewClick() {
         initStage();
+        FXMLLoader fxmlLoader = new FXMLLoader(StartApplication.class.getResource("main-scene.fxml"));
+        Scene mainScene = null;
+        try {
+            mainScene = new Scene(fxmlLoader.load(), 1000, 1000);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error: could not load main scene from fxml");
+        }
+        mainStage.setScene(mainScene);
         mainStage.getScene().getStylesheets().clear();
         mainStage.getScene().getStylesheets().add(MainStage.DEFAULT_VIEW);
     }

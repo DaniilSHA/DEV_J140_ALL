@@ -39,4 +39,8 @@ public class MainStage extends Stage {
     public void setCurrentStylesheetPath(String currentStylesheetPath) {
         this.currentStylesheetPath = currentStylesheetPath;
     }
+
+    public String getCurrentStylesheetPath() {
+        return currentStylesheetPath;
+    }
 }

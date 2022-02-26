@@ -45,6 +45,7 @@ public class LoginController {
         initStage();
         login.setText("");
         password.setText("");
+        statusMessage.setText("");
         stage.setRegistrationScene();
     }
 

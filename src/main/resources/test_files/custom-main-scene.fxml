@@ -16,12 +16,12 @@
         </Menu>
     </MenuBar>
 
-    <HBox alignment="CENTER">
+    <HBox alignment="TOP_LEFT">
         <Label fx:id="infoLabel">Database information</Label>
     </HBox>
 
-    <HBox alignment="CENTER">
-        <TableView fx:id="accountTable" minWidth="570" minHeight="900">
+    <HBox alignment="TOP_LEFT">
+        <TableView fx:id="accountTable" minWidth="800" minHeight="500">
             <columns>
                 <TableColumn fx:id="firstNameCol" text="First name"/>
                 <TableColumn fx:id="lastNameCol" text="Last name"/>

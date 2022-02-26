@@ -41,4 +41,7 @@ public class AddNoteStage extends Stage {
         setScene(addNoteScene);
     }
 
+    public String getCurrentStylesheetPath() {
+        return currentStylesheetPath;
+    }
 }

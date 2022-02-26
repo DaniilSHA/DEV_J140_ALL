@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<VBox alignment="CENTER" spacing="30" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.dev_j140_all.controllers.RegistrationController">
+<VBox fx:id="registrationScene" alignment="CENTER" spacing="30" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.dev_j140_all.controllers.RegistrationController">
 
     <Label fx:id="info" alignment="CENTER">Welcome to registration page. Please create you account </Label>
 
