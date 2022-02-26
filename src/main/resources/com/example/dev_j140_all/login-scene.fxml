@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml" alignment="CENTER" spacing="30" fx:controller="com.example.dev_j140_all.controllers.LoginController">
+
+    <Label fx:id="info" alignment="CENTER">Welcome to login page. Please login</Label>
+
+    <HBox alignment="CENTER" spacing="20">
+        <Label fx:id="usernameLabel">User name:</Label>
+        <TextField fx:id="login"/>
+    </HBox>
+
+    <HBox alignment="CENTER" spacing="20">
+        <Label fx:id="passwordLabel">Password:</Label>
+        <PasswordField fx:id="password"/>
+    </HBox>
+
+    <Label fx:id="statusMessage" alignment="CENTER" wrapText="true" maxWidth="300" textAlignment="CENTER"/>
+
+    <HBox alignment="CENTER" spacing="20">
+        <Button fx:id="activeButton" onAction="#onActiveButtonClick">make login</Button>
+        <Button fx:id="switchButton" onAction="#onSwitchButtonClick">go to registration page</Button>
+    </HBox>
+
+</VBox>
+

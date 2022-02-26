@@ -1,30 +1,29 @@
-package com.example.dev_j140_all.event_hadlers;
+package com.example.dev_j140_all.controllers;
 
 import com.example.dev_j140_all.database.DatabaseStorage;
 import com.example.dev_j140_all.models.User;
 import com.example.dev_j140_all.services.JdbcDatabaseService;
 import com.example.dev_j140_all.views.AuthorizationStage;
 import javafx.event.Event;
-import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class ValidateRegistrationEventHandler implements EventHandler {
+public class RegistrationController {
     private AuthorizationStage stage;
+
+    @FXML
     private Label statusMessage;
+
+    @FXML
     private TextField login;
+
+    @FXML
     private PasswordField password;
 
-    public ValidateRegistrationEventHandler(AuthorizationStage stage, Label statusMessage, TextField login, PasswordField password) {
-        this.stage = stage;
-        this.statusMessage = statusMessage;
-        this.login = login;
-        this.password = password;
-    }
-
-    @Override
-    public void handle(Event event) {
+    @FXML
+    public void onActiveButtonClick() {
         switch (makeLoginValidation()) {
             case 0 : break;
             case 1 : statusMessage.setText("invalid login - the length should be between 4 and 16"); return;
@@ -49,6 +48,14 @@ public class ValidateRegistrationEventHandler implements EventHandler {
         }
     }
 
+    @FXML
+    public void onSwitchButtonClick() {
+        initStage();
+        login.setText("");
+        password.setText("");
+        stage.setLoginScene();
+    }
+
     private int makePasswordValidation() {
         String password = this.password.getText();
         if (password.length()<4 || password.length()>16) return 1;
@@ -69,4 +76,9 @@ public class ValidateRegistrationEventHandler implements EventHandler {
 
         return 0;
     }
+
+    private void initStage() {
+        if (statusMessage != null) stage = (AuthorizationStage) statusMessage.getScene().getWindow();
+    }
+
 }

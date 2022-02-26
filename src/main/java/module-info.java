@@ -9,5 +9,6 @@ module com.example.dev_j140_all {
 
     opens com.example.dev_j140_all to javafx.fxml, javafx.base, javafx.controls, javafx.graphics;
     opens com.example.dev_j140_all.models to javafx.base;
+    opens com.example.dev_j140_all.controllers to javafx.fxml;
     exports com.example.dev_j140_all;
 }
