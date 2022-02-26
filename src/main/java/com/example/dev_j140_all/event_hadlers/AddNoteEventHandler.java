@@ -13,6 +13,7 @@ public class AddNoteEventHandler implements EventHandler {
     public AddNoteEventHandler(MainStage stage, String currentStylesheetPath) {
         this.stage = stage;
         this.currentStylesheetPath = currentStylesheetPath;
+
     }
 
     @Override
