@@ -1,0 +1,32 @@
+* {
+    -fx-font-family: "Book Antiqua";
+    -fx-font-size: 12 px;
+}
+
+.label {
+    -fx-font-weight: bold;
+}
+
+.button {
+    -fx-background-color: #ffd500;
+}
+
+#statusMessage {
+    -fx-text-fill: red;
+}
+
+#loginScene {
+    -fx-background-color: #e0fce0;
+}
+
+#registrationScene {
+    -fx-background-color: #95e8e5;
+}
+
+#activeButton {
+    -fx-background-color: #2fff00;
+}
+
+#switchButton {
+    -fx-background-color: #996be7;
+}

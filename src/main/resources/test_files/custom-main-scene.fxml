@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml" spacing="10" fx:controller="com.example.dev_j140_all.controllers.MainStageController">
+
+    <MenuBar>
+        <Menu fx:id="fileMenu" text="File">
+                <MenuItem fx:id="addNote" text="add note" onAction="#onAddNoteButtonClick"/>
+        </Menu>
+        <Menu fx:id="viewMenu" text="View">
+                <MenuItem fx:id="defaultView" text="default" onAction="#onDefaultViewClick"/>
+                <MenuItem fx:id="customCssView" text="select own CSS view" onAction="#onCustomCssViewClick"/>
+                <MenuItem fx:id="customFxmlView" text="select own FXML view" onAction="#onCustomFxmlViewClick"/>
+        </Menu>
+    </MenuBar>
+
+    <HBox alignment="TOP_LEFT">
+        <Label fx:id="infoLabel">Database information</Label>
+    </HBox>
+
+    <HBox alignment="TOP_LEFT">
+        <TableView fx:id="accountTable" minWidth="800" minHeight="500">
+            <columns>
+                <TableColumn fx:id="firstNameCol" text="First name"/>
+                <TableColumn fx:id="lastNameCol" text="Last name"/>
+                <TableColumn fx:id="emailCol" text="Email"/>
+                <TableColumn fx:id="genderCol" text="Gender"/>
+                <TableColumn fx:id="creditCardCol" text="Credit card"/>
+                <TableColumn fx:id="balanceCol" text="Balance"/>
+            </columns>
+        </TableView>
+    </HBox>
+
+    <HBox alignment="CENTER" spacing="40">
+        <Button text="Add note" onAction="#onAddNoteButtonClick"/>
+    </HBox>
+
+</VBox>
